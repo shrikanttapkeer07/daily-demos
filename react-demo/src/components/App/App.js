@@ -88,8 +88,8 @@ export default function App() {
    * Uncomment to attach call object to window for debugging purposes.
    */
   // useEffect(() => {
-  //   window.callObject = appState.callObject;
-  // }, [appState.callObject]);
+  //   window.callObject = callObject;
+  // }, [callObject]);
 
   /**
    * Update app state based on reported meeting state changes.
