@@ -8,18 +8,7 @@ import TrayButton, {
 } from "../TrayButton/TrayButton";
 import CallObjectContext from "../../CallObjectContext";
 import { logDailyEvent } from "../../logUtils";
-
-/**
- * Screen sharing only really works on Chrome. Trying to invoke
- * `startScreenShare()` on other browsers can result in unexpected behavior.
- *
- * This isn't ideal. In future releases, daily-js will:
- * - More gracefully handle browser differences so you don't have to hard-code checks like this.
- * - Support screen share on more browsers!
- */
-function browserSupportsScreenShare() {
-  return navigator.userAgent.match(/Chrome\//);
-}
+import DailyIframe from "@daily-co/daily-js";
 
 /**
  * Gets [isCameraMuted, isMicMuted, isSharingScreen].
@@ -115,7 +104,7 @@ export default function Tray(props) {
         highlighted={isMicMuted}
         onClick={toggleMic}
       />
-      {browserSupportsScreenShare() && (
+      {DailyIframe.supportedBrowser().supportsScreenShare && (
         <TrayButton
           type={TYPE_SCREEN}
           disabled={props.disabled}
