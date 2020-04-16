@@ -149,6 +149,12 @@ export default function Call() {
   const message = getMessage(callState);
   return (
     <div className="call">
+      <div className="large-tiles">
+        {!message
+          ? largeTiles
+          : null /* Avoid showing large tiles to make room for the message */}
+      </div>
+      <div className="small-tiles">{smallTiles}</div>
       {message && (
         <CallMessage
           header={message.header}
@@ -156,12 +162,6 @@ export default function Call() {
           isError={message.isError}
         />
       )}
-      <div className="large-tiles">
-        {!message
-          ? largeTiles
-          : null /* Avoid showing large tiles to make room for the message */}
-      </div>
-      <div className="small-tiles">{smallTiles}</div>
     </div>
   );
 }

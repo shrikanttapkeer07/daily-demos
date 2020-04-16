@@ -35,6 +35,17 @@ npm run start # or `npm run dev`, to automatically restart server on file change
 
 Then open your browser and go to [localhost:3000](http://localhost:3000/).
 
+### Running the React demo Electron runner
+
+The following runs the React demo app from within a simple Electron shell.
+
+```bash
+# From react-demo-electron-runner
+nvm i
+npm i
+npm run start
+```
+
 ## Contributing a new demo project
 
 To add a new demo project:
