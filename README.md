@@ -19,7 +19,10 @@ Using the `static-demos` project as an example:
 nvm i
 cd static-demos/
 npm i
-npm run start # or `npm run dev`, to automatically restart server on file changes
+
+npm run start
+# or
+npm run dev # automatically restarts server on file changes
 ```
 
 Then open your browser and go to `localhost:<port>`, using the `port` printed in the terminal after running the above.
@@ -30,7 +33,10 @@ Then open your browser and go to `localhost:<port>`, using the `port` printed in
 # From daily-demos
 nvm i
 npm i
-npm run start # or `npm run dev`, to automatically restart server on file changes
+
+npm run start
+# or
+npm run dev # automatically restarts server on file changes
 ```
 
 Then open your browser and go to [localhost:3000](http://localhost:3000/).
@@ -43,7 +49,10 @@ The following runs the React demo app from within a simple Electron shell.
 # From react-demo-electron-runner
 nvm i
 npm i
-npm run start
+
+npm run start # points to demos.daily.co
+# or
+npm run dev # points to localhost:3000 (prerequisite: "Running the entire demo project site")
 ```
 
 ## Contributing a new demo project
@@ -73,7 +82,7 @@ npm init
 app.use(
   "/my-new-demo",
   createProxyMiddleware({
-    target: "http://localhost:1234" // Your demo's port number
+    target: "http://localhost:1234", // Your demo's port number
   })
 );
 ```

@@ -13,7 +13,7 @@ function createWindow() {
   });
 
   // Use DEV_URL for testing local changes
-  win.loadURL(PROD_URL);
+  win.loadURL(process.env.NODE_ENV === "development" ? DEV_URL : PROD_URL);
 }
 
 app.whenReady().then(createWindow);
