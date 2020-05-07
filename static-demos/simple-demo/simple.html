@@ -53,7 +53,6 @@
           .on("camera-error", showEvent)
           .on("joining-meeting", showEvent)
           .on("joined-meeting", showEvent)
-          .on("left-meeting", showEvent)
           .on("participant-joined", showEvent)
           .on("participant-updated", showEvent)
           .on("participant-left", showEvent)
@@ -64,11 +63,21 @@
           .on("recording-upload-completed", showEvent)
           .on("app-message", showEvent)
           .on("input-event", showEvent)
-          .on("error", showEvent);
+          .on("error", showEvent)
+          // add a leave handler to clean things up
+          .on("left-meeting", leave);
 
         // join the room
         //
-        await callFrame.join({ url: room.url });
+        await callFrame.join({ 
+          url: room.url,
+          showLeaveButton: true 
+        });
+
+        function leave(e) {
+          showEvent(e);
+          callFrame.destroy();
+        }
 
         console.log(
           " You are connected to",
