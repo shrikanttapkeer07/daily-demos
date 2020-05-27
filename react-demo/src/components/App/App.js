@@ -19,7 +19,7 @@ const STATE_ERROR = "STATE_ERROR";
 export default function App() {
   const [appState, setAppState] = useState(STATE_IDLE);
   const [roomUrl, setRoomUrl] = useState(null);
-  const [callObject, setCallObject] = useState(null);
+  const [callObject, _] = useState(DailyIframe.createCallObject());
 
   /**
    * Creates a new call room.
@@ -46,12 +46,11 @@ export default function App() {
    * events.
    */
   const startJoiningCall = useCallback(url => {
-    const newCallObject = DailyIframe.createCallObject();
+    if (!callObject) return;
     setRoomUrl(url);
-    setCallObject(newCallObject);
     setAppState(STATE_JOINING);
-    newCallObject.join({ url });
-  }, []);
+    callObject.join({ url });
+  }, [callObject]);
 
   /**
    * Starts leaving the current call.
@@ -111,11 +110,8 @@ export default function App() {
           setAppState(STATE_JOINED);
           break;
         case "left-meeting":
-          callObject.destroy().then(() => {
             setRoomUrl(null);
-            setCallObject(null);
             setAppState(STATE_IDLE);
-          });
           break;
         case "error":
           setAppState(STATE_ERROR);
