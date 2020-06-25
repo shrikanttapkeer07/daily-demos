@@ -133,9 +133,6 @@ async function createFrame() {
            .on('recording-error', showEvent)
            .on('app-message', showEvent)
            .on('input-event', showEvent)
-           .on('live-streaming-started', showEvent)
-           .on('live-streaming-error', showEvent)
-           .on('live-streaming-stopped', showEvent);
 
   callFrame.on('joined-meeting', (e) => {
     showEvent(e);
