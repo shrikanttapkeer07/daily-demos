@@ -1,5 +1,5 @@
-import React, { useEffect, useRef } from "react";
-import "./Tile.css";
+import React, { useEffect, useRef } from 'react';
+import './Tile.css';
 
 /**
  * Props
@@ -47,9 +47,9 @@ export default function Tile(props) {
   }
 
   function getClassNames() {
-    let classNames = "tile";
-    classNames += props.isLarge ? " large" : " small";
-    props.isLocalPerson && (classNames += " local");
+    let classNames = 'tile';
+    classNames += props.isLarge ? ' large' : ' small';
+    props.isLocalPerson && (classNames += ' local');
     return classNames;
   }
 

@@ -6,7 +6,7 @@
 
     <style>
       body {
-        font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
+        font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
         font-size: 1em;
         font-weight: 800;
         color: #ffffff;
@@ -177,7 +177,7 @@
         </div>
         <hr />
         <div id="leave-call-div" class="ui-controller-control">
-          <p id="leave-call-label" style="color:#ff3b30"></p>
+          <p id="leave-call-label" style="color: #ff3b30;"></p>
           <img src="../shared-assets/icon-leave.svg" alt="Leave call" />
         </div>
       </div>
@@ -188,20 +188,20 @@
       let url, token, isCurrentlyScreenSharing;
 
       function showEvent(e) {
-        console.log("video call event -->", e);
+        console.log('video call event -->', e);
       }
 
       async function joinedCall(e) {
         showEvent(e);
-        document.getElementById("leave-call-label").innerHTML = "Leave call";
-        document.getElementById("leave-call-div").onclick = () =>
+        document.getElementById('leave-call-label').innerHTML = 'Leave call';
+        document.getElementById('leave-call-div').onclick = () =>
           callFrame.leave();
       }
 
       async function leftCall(e) {
         showEvent(e);
-        document.getElementById("leave-call-label").innerHTML = "Join call";
-        document.getElementById("leave-call-div").onclick = () =>
+        document.getElementById('leave-call-label').innerHTML = 'Join call';
+        document.getElementById('leave-call-div').onclick = () =>
           callFrame.join();
       }
 
@@ -209,23 +209,23 @@
         showEvent(e);
         let ps = callFrame.participants();
         if (Object.keys(ps).length < 2) {
-          document.getElementById("ui-local").style.display = "none";
-          document.getElementById("ui-alone").style.display = "block";
-          let wrapper = document.getElementById("ui-participant");
-          wrapper.innerHTML = "";
+          document.getElementById('ui-local').style.display = 'none';
+          document.getElementById('ui-alone').style.display = 'block';
+          let wrapper = document.getElementById('ui-participant');
+          wrapper.innerHTML = '';
         } else {
-          document.getElementById("ui-local").style.display = "none";
-          document.getElementById("ui-alone").style.display = "none";
-          let wrapper = document.getElementById("ui-participant");
-          wrapper.innerHTML = "";
-          Object.keys(ps).forEach(p => {
-            if (p === "local") {
+          document.getElementById('ui-local').style.display = 'none';
+          document.getElementById('ui-alone').style.display = 'none';
+          let wrapper = document.getElementById('ui-participant');
+          wrapper.innerHTML = '';
+          Object.keys(ps).forEach((p) => {
+            if (p === 'local') {
               return;
             }
             let participant = ps[p];
             wrapper.innerHTML += `
             <div class="ui-participant-guest">
-            <p>${participant.user_name || "Guest"}</p>
+            <p>${participant.user_name || 'Guest'}</p>
               <img src="icon-eject.svg" alt="Kick user out of meeting"
                     onclick="callFrame.updateParticipant('${p}',{eject:true})" />
             </div>`;
@@ -236,12 +236,12 @@
         if (ps.local) {
           if (ps.local.screen && !isCurrentlyScreenSharing) {
             isCurrentlyScreenSharing = true;
-            document.getElementById("screenshare-label").innerHTML =
-              "Stop sharing your screen";
+            document.getElementById('screenshare-label').innerHTML =
+              'Stop sharing your screen';
           } else if (!ps.local.screen && isCurrentlyScreenSharing) {
             isCurrentlyScreenSharing = false;
-            document.getElementById("screenshare-label").innerHTML =
-              "Start a screen share";
+            document.getElementById('screenshare-label').innerHTML =
+              'Start a screen share';
           }
         }
       }
@@ -257,40 +257,40 @@
         //
         room = await createMtgRoom();
         ownerLink = await createMtgLinkWithToken(room, {
-          is_owner: true
+          is_owner: true,
         });
 
         callFrame = window.DailyIframe.wrap(
-          document.getElementById("call-frame"),
+          document.getElementById('call-frame'),
           { customLayout: true }
         );
         callFrame
-          .on("joining-meeting", showEvent)
-          .on("joined-meeting", joinedCall)
-          .on("left-meeting", leftCall)
-          .on("participant-joined", updateEvent)
-          .on("participant-updated", updateEvent)
-          .on("participant-left", updateEvent)
-          .on("recording-started", showEvent)
-          .on("recording-stopped", showEvent)
-          .on("recording-stats", showEvent)
-          .on("recording-error", showEvent)
-          .on("recording-upload-completed", showEvent)
-          .on("error", showEvent);
+          .on('joining-meeting', showEvent)
+          .on('joined-meeting', joinedCall)
+          .on('left-meeting', leftCall)
+          .on('participant-joined', updateEvent)
+          .on('participant-updated', updateEvent)
+          .on('participant-left', updateEvent)
+          .on('recording-started', showEvent)
+          .on('recording-stopped', showEvent)
+          .on('recording-stats', showEvent)
+          .on('recording-error', showEvent)
+          .on('recording-upload-completed', showEvent)
+          .on('error', showEvent);
         await callFrame.join({
           url: ownerLink,
-          cssFile: "demo-css-grid.css"
+          cssFile: 'demo-css-grid.css',
         });
 
         console.log(
-          " You are connected to",
+          ' You are connected to',
           room.url,
-          "\n",
-          "Join from another tab or machine, or use the",
-          "\n",
-          "`callFrame.addFakeParticipant()` method to test",
-          "\n",
-          "this layout."
+          '\n',
+          'Join from another tab or machine, or use the',
+          '\n',
+          '`callFrame.addFakeParticipant()` method to test',
+          '\n',
+          'this layout.'
         );
       }
 

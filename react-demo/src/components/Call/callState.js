@@ -13,12 +13,12 @@ const initialCallState = {
     local: {
       isLoading: true,
       audioTrack: null,
-      videoTrack: null
-    }
+      videoTrack: null,
+    },
   },
   clickAllowTimeoutFired: false,
   camOrMicError: null,
-  fatalError: null
+  fatalError: null,
 };
 
 // --- Actions ---
@@ -27,28 +27,28 @@ const initialCallState = {
  * CLICK_ALLOW_TIMEOUT action structure:
  * - type: string
  */
-const CLICK_ALLOW_TIMEOUT = "CLICK_ALLOW_TIMEOUT";
+const CLICK_ALLOW_TIMEOUT = 'CLICK_ALLOW_TIMEOUT';
 
 /**
  * PARTICIPANTS_CHANGE action structure:
  * - type: string
  * - participants: Object (from Daily.co callObject.participants())
  */
-const PARTICIPANTS_CHANGE = "PARTICIPANTS_CHANGE";
+const PARTICIPANTS_CHANGE = 'PARTICIPANTS_CHANGE';
 
 /**
  * CAM_OR_MIC_ERROR action structure:
  * - type: string
  * - message: string
  */
-const CAM_OR_MIC_ERROR = "CAM_OR_MIC_ERROR";
+const CAM_OR_MIC_ERROR = 'CAM_OR_MIC_ERROR';
 
 /**
  * CAM_OR_MIC_ERROR action structure:
  * - type: string
  * - message: string
  */
-const FATAL_ERROR = "FATAL_ERROR";
+const FATAL_ERROR = 'FATAL_ERROR';
 
 // --- Reducer and helpers --
 
@@ -57,13 +57,13 @@ function callReducer(callState, action) {
     case CLICK_ALLOW_TIMEOUT:
       return {
         ...callState,
-        clickAllowTimeoutFired: true
+        clickAllowTimeoutFired: true,
       };
     case PARTICIPANTS_CHANGE:
       const callItems = getCallItems(action.participants, callState.callItems);
       return {
         ...callState,
-        callItems
+        callItems,
       };
     case CAM_OR_MIC_ERROR:
       return { ...callState, camOrMicError: action.message };
@@ -75,7 +75,7 @@ function callReducer(callState, action) {
 }
 
 function getLocalCallItem(callItems) {
-  return callItems["local"];
+  return callItems['local'];
 }
 
 function getCallItems(participants, prevCallItems) {
@@ -90,12 +90,12 @@ function getCallItems(participants, prevCallItems) {
     callItems[id] = {
       isLoading: !hasLoaded && missingTracks,
       audioTrack: participant.audioTrack,
-      videoTrack: participant.videoTrack
+      videoTrack: participant.videoTrack,
     };
     if (participant.screenVideoTrack) {
-      callItems[id + "-screen"] = {
+      callItems[id + '-screen'] = {
         isLoading: false,
-        videoTrack: participant.screenVideoTrack
+        videoTrack: participant.screenVideoTrack,
       };
     }
   }
@@ -106,15 +106,15 @@ function getCallItems(participants, prevCallItems) {
 
 // True if id corresponds to local participant (*not* their screen share)
 function isLocal(id) {
-  return id === "local";
+  return id === 'local';
 }
 
 function isScreenShare(id) {
-  return id.endsWith("-screen");
+  return id.endsWith('-screen');
 }
 
 function containsScreenShare(callItems) {
-  return Object.keys(callItems).some(id => isScreenShare(id));
+  return Object.keys(callItems).some((id) => isScreenShare(id));
 }
 
 function getMessage(callState) {
@@ -133,7 +133,7 @@ function getMessage(callState) {
   } else if (callState.camOrMicError) {
     header = `Camera or mic access error: ${callState.camOrMicError}`;
     detail =
-      "See https://help.daily.co/en/articles/2528184-unblock-camera-mic-access-on-a-computer to troubleshoot.";
+      'See https://help.daily.co/en/articles/2528184-unblock-camera-mic-access-on-a-computer to troubleshoot.';
     isError = true;
   } else if (shouldShowClickAllow()) {
     header = 'Click "Allow" to enable camera and mic access';
@@ -154,5 +154,5 @@ export {
   isLocal,
   isScreenShare,
   containsScreenShare,
-  getMessage
+  getMessage,
 };

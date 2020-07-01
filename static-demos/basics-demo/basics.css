@@ -1,4 +1,4 @@
-@import url("https://fonts.googleapis.com/css?family=Lato");
+@import url('https://fonts.googleapis.com/css?family=Lato');
 
 /*
 
@@ -35,7 +35,7 @@ body {
 /* svg mic muted symbol, for mic muted participant state */
 
 .daily-video-overlay.mic-muted {
-  content: "";
+  content: '';
   position: absolute;
   width: 100%;
   height: 100%;

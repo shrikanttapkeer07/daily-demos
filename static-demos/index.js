@@ -1,16 +1,16 @@
-const handler = require("serve-handler");
+const handler = require('serve-handler');
 
 module.exports = async (req, res) => {
   console.log(req.url);
   await handler(req, res, {
-    public: "../",
+    public: '../',
     cleanUrls: false,
     unlisted: [
-      "index.js",
-      "package.json",
-      "package-lock.json",
-      "doc-site-assets",
-      "node_modules"
-    ]
+      'index.js',
+      'package.json',
+      'package-lock.json',
+      'doc-site-assets',
+      'node_modules',
+    ],
   });
 };

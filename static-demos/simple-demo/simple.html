@@ -15,7 +15,7 @@
 
     <script>
       function showEvent(e) {
-        console.log("video call event -->", e);
+        console.log('video call event -->', e);
       }
 
       async function run() {
@@ -47,31 +47,31 @@
         // to the console
         //
         callFrame
-          .on("loading", showEvent)
-          .on("loaded", showEvent)
-          .on("started-camera", showEvent)
-          .on("camera-error", showEvent)
-          .on("joining-meeting", showEvent)
-          .on("joined-meeting", showEvent)
-          .on("participant-joined", showEvent)
-          .on("participant-updated", showEvent)
-          .on("participant-left", showEvent)
-          .on("recording-started", showEvent)
-          .on("recording-stopped", showEvent)
-          .on("recording-stats", showEvent)
-          .on("recording-error", showEvent)
-          .on("recording-upload-completed", showEvent)
-          .on("app-message", showEvent)
-          .on("input-event", showEvent)
-          .on("error", showEvent)
+          .on('loading', showEvent)
+          .on('loaded', showEvent)
+          .on('started-camera', showEvent)
+          .on('camera-error', showEvent)
+          .on('joining-meeting', showEvent)
+          .on('joined-meeting', showEvent)
+          .on('participant-joined', showEvent)
+          .on('participant-updated', showEvent)
+          .on('participant-left', showEvent)
+          .on('recording-started', showEvent)
+          .on('recording-stopped', showEvent)
+          .on('recording-stats', showEvent)
+          .on('recording-error', showEvent)
+          .on('recording-upload-completed', showEvent)
+          .on('app-message', showEvent)
+          .on('input-event', showEvent)
+          .on('error', showEvent)
           // add a leave handler to clean things up
-          .on("left-meeting", leave);
+          .on('left-meeting', leave);
 
         // join the room
         //
-        await callFrame.join({ 
+        await callFrame.join({
           url: room.url,
-          showLeaveButton: true 
+          showLeaveButton: true,
         });
 
         function leave(e) {
@@ -80,20 +80,20 @@
         }
 
         console.log(
-          " You are connected to",
+          ' You are connected to',
           callFrame.properties.url,
-          "\n",
-          "Use the window.callFrame object to experiment with",
-          "\n",
-          "controlling this call. For example, in the console",
-          "\n",
-          "try",
-          "\n",
-          "    callFrame.participants()",
-          "\n",
-          "    callFrame.setLocalVideo(false)",
-          "\n",
-          "    callFrame.startScreenShare()"
+          '\n',
+          'Use the window.callFrame object to experiment with',
+          '\n',
+          'controlling this call. For example, in the console',
+          '\n',
+          'try',
+          '\n',
+          '    callFrame.participants()',
+          '\n',
+          '    callFrame.setLocalVideo(false)',
+          '\n',
+          '    callFrame.startScreenShare()'
         );
       }
     </script>

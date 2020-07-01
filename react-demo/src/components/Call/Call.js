@@ -1,8 +1,8 @@
-import React, { useEffect, useContext, useReducer } from "react";
-import "./Call.css";
-import Tile from "../Tile/Tile";
-import CallObjectContext from "../../CallObjectContext";
-import CallMessage from "../CallMessage/CallMessage";
+import React, { useEffect, useContext, useReducer } from 'react';
+import './Call.css';
+import Tile from '../Tile/Tile';
+import CallObjectContext from '../../CallObjectContext';
+import CallMessage from '../CallMessage/CallMessage';
 import {
   initialCallState,
   CLICK_ALLOW_TIMEOUT,
@@ -13,9 +13,9 @@ import {
   isLocal,
   isScreenShare,
   containsScreenShare,
-  getMessage
-} from "./callState";
-import { logDailyEvent } from "../../logUtils";
+  getMessage,
+} from './callState';
+import { logDailyEvent } from '../../logUtils';
 
 export default function Call() {
   const callObject = useContext(CallObjectContext);
@@ -28,16 +28,16 @@ export default function Call() {
     if (!callObject) return;
 
     const events = [
-      "participant-joined",
-      "participant-updated",
-      "participant-left"
+      'participant-joined',
+      'participant-updated',
+      'participant-left',
     ];
 
     function handleNewParticipantsState(event) {
       event && logDailyEvent(event);
       dispatch({
         type: PARTICIPANTS_CHANGE,
-        participants: callObject.participants()
+        participants: callObject.participants(),
       });
     }
 
@@ -68,17 +68,17 @@ export default function Call() {
       dispatch({
         type: CAM_OR_MIC_ERROR,
         message:
-          (event && event.errorMsg && event.errorMsg.errorMsg) || "Unknown"
+          (event && event.errorMsg && event.errorMsg.errorMsg) || 'Unknown',
       });
     }
 
     // We're making an assumption here: there is no camera error when callObject
     // is first assigned.
 
-    callObject.on("camera-error", handleCameraErrorEvent);
+    callObject.on('camera-error', handleCameraErrorEvent);
 
     return function cleanup() {
-      callObject.off("camera-error", handleCameraErrorEvent);
+      callObject.off('camera-error', handleCameraErrorEvent);
     };
   }, [callObject]);
 
@@ -92,17 +92,17 @@ export default function Call() {
       logDailyEvent(e);
       dispatch({
         type: FATAL_ERROR,
-        message: (e && e.errorMsg) || "Unknown"
+        message: (e && e.errorMsg) || 'Unknown',
       });
     }
 
     // We're making an assumption here: there is no error when callObject is
     // first assigned.
 
-    callObject.on("error", handleErrorEvent);
+    callObject.on('error', handleErrorEvent);
 
     return function cleanup() {
-      callObject.off("error", handleErrorEvent);
+      callObject.off('error', handleErrorEvent);
     };
   }, [callObject]);
 
@@ -150,9 +150,11 @@ export default function Call() {
   return (
     <div className="call">
       <div className="large-tiles">
-        {!message
-          ? largeTiles
-          : null /* Avoid showing large tiles to make room for the message */}
+        {
+          !message
+            ? largeTiles
+            : null /* Avoid showing large tiles to make room for the message */
+        }
       </div>
       <div className="small-tiles">{smallTiles}</div>
       {message && (
