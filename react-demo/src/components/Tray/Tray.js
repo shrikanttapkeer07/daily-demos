@@ -1,14 +1,14 @@
-import React, { useContext, useEffect, useState } from "react";
-import "./Tray.css";
+import React, { useContext, useEffect, useState } from 'react';
+import './Tray.css';
 import TrayButton, {
   TYPE_MUTE_CAMERA,
   TYPE_MUTE_MIC,
   TYPE_SCREEN,
-  TYPE_LEAVE
-} from "../TrayButton/TrayButton";
-import CallObjectContext from "../../CallObjectContext";
-import { logDailyEvent } from "../../logUtils";
-import DailyIframe from "@daily-co/daily-js";
+  TYPE_LEAVE,
+} from '../TrayButton/TrayButton';
+import CallObjectContext from '../../CallObjectContext';
+import { logDailyEvent } from '../../logUtils';
+import DailyIframe from '@daily-co/daily-js';
 
 /**
  * Gets [isCameraMuted, isMicMuted, isSharingScreen].
@@ -82,11 +82,11 @@ export default function Tray(props) {
     handleNewParticipantsState();
 
     // Listen for changes in state
-    callObject.on("participant-updated", handleNewParticipantsState);
+    callObject.on('participant-updated', handleNewParticipantsState);
 
     // Stop listening for changes in state
     return function cleanup() {
-      callObject.off("participant-updated", handleNewParticipantsState);
+      callObject.off('participant-updated', handleNewParticipantsState);
     };
   }, [callObject]);
 

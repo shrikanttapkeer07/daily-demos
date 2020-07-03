@@ -1,4 +1,4 @@
-@import url("https://fonts.googleapis.com/css?family=Lato");
+@import url('https://fonts.googleapis.com/css?family=Lato');
 
 ::-webkit-scrollbar {
   display: none;
@@ -49,7 +49,7 @@
 } */
 
 .daily-video-overlay.mic-muted::before {
-  content: "";
+  content: '';
   position: absolute;
   background-image: url(/static-demos/shared-assets/icon-microphone-off-white.svg);
   background-position: center;
@@ -62,7 +62,7 @@
 }
 
 .show-names .daily-video-div::before {
-  font-family: "Lato", sans-serif;
+  font-family: 'Lato', sans-serif;
   content: attr(data-user-name);
   position: absolute;
   padding: 0.65em;
@@ -76,7 +76,7 @@
   bottom: 0;
   height: 1.5em;
   text-align: center;
-  font-family: "Lato", sans-serif;
+  font-family: 'Lato', sans-serif;
   font-weight: bold;
   color: white;
   padding: 0.25em;
@@ -86,28 +86,28 @@
   background-color: grey;
 }
 .low-bandwidth .info-div::after {
-  content: "32kb/s upstream video bandwidth cap";
+  content: '32kb/s upstream video bandwidth cap';
 }
 
 .recording .info-div {
   background-color: red;
 }
 .recording .info-div::after {
-  content: "recording";
+  content: 'recording';
 }
 
 .recording .info-div {
   background-color: red;
 }
 .recording .info-div::after {
-  content: "recording ...";
+  content: 'recording ...';
 }
 
 .recording-uploading:not(.recording) .info-div {
   background-color: green;
 }
 .recording-uploading:not(.recording) .info-div::after {
-  content: "uploading ...";
+  content: 'uploading ...';
 }
 /* smartphones, touchscreens */
 @media (hover: none) and (pointer: coarse) {

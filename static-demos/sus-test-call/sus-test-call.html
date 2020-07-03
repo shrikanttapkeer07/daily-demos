@@ -10,8 +10,8 @@
     <style>
       @font-face {
         font-family: GraphikMedium;
-        src: url("https://assets.website-files.com/59c9811db5fc1c0001445dbd/59c981e01931040001331424_Graphik-Medium-Web.woff")
-          format("woff");
+        src: url('https://assets.website-files.com/59c9811db5fc1c0001445dbd/59c981e01931040001331424_Graphik-Medium-Web.woff')
+          format('woff');
         font-weight: 300;
         font-style: normal;
         font-display: swap;
@@ -256,17 +256,17 @@
     <script>
       const traceId = generateUUID(),
         rootSpanId = generateUUID(),
-        serviceName = "test-call";
-      sendTrace({ root: true, name: "page-load" });
+        serviceName = 'test-call';
+      sendTrace({ root: true, name: 'page-load' });
       let cameraOk = false;
       cameraError = false;
       nextStepTimeout = null;
 
       const instructionsContainer = document.getElementById(
-        "instructions-container"
+        'instructions-container'
       );
       function showEvent(e) {
-        console.log("video call event -->", e);
+        console.log('video call event -->', e);
       }
 
       //
@@ -275,58 +275,58 @@
 
       let browserInfo = window.DailyIframe.supportedBrowser();
       console.log(browserInfo);
-      if (!browserInfo.supported || browserInfo.name === "Microsoft Edge") {
-        swapInContent("welcome-browser-not-ok");
-        sendTrace({ name: "error", error: "browser-not-ok" });
+      if (!browserInfo.supported || browserInfo.name === 'Microsoft Edge') {
+        swapInContent('welcome-browser-not-ok');
+        sendTrace({ name: 'error', error: 'browser-not-ok' });
       } else if (browserInfo.mobile) {
-        swapInContent("welcome-browser-mobile");
-      } else if (browserInfo.name !== "Chrome") {
-        swapInContent("welcome-browser-not-chrome");
+        swapInContent('welcome-browser-mobile');
+      } else if (browserInfo.name !== 'Chrome') {
+        swapInContent('welcome-browser-not-chrome');
       } else {
-        swapInContent("welcome-browser-ok");
+        swapInContent('welcome-browser-ok');
       }
 
       async function tryJoin() {
         try {
-          swapInContent("join-spinner");
+          swapInContent('join-spinner');
 
           let room = await createMtgRoom();
           window.callFrame = window.DailyIframe.createFrame({
             iframeStyle: {},
-            url: room.url
+            url: room.url,
           });
 
           callFrame
-            .on("loading", showEvent)
-            .on("loaded", showEvent)
-            .on("started-camera", handleStartedCamera)
-            .on("camera-error", handleCameraError)
-            .on("joined-meeting", handleJoinedMeeting)
-            .on("error", handleObjectError);
+            .on('loading', showEvent)
+            .on('loaded', showEvent)
+            .on('started-camera', handleStartedCamera)
+            .on('camera-error', handleCameraError)
+            .on('joined-meeting', handleJoinedMeeting)
+            .on('error', handleObjectError);
 
           // 30 second timeout for both mic/camera and meeting join
           nextStepTimeout = setTimeout(networkStepTimeout, 30 * 1000);
           let startTs = Date.now();
           await callFrame.join();
-          sendTrace({ name: "joined", startTs });
+          sendTrace({ name: 'joined', startTs });
         } catch (e) {
           console.error(e);
-          swapInContent("unknown-error");
-          sendTrace({ name: "error", error: e.message || JSON.stringify(e) });
+          swapInContent('unknown-error');
+          sendTrace({ name: 'error', error: e.message || JSON.stringify(e) });
         }
       }
 
       async function handleObjectError(e) {
         clearTimeout(nextStepTimeout);
         showEvent(e);
-        swapInContent("object-error");
-        sendTrace({ name: "error", error: e.errorMsg || JSON.stringify(e) });
+        swapInContent('object-error');
+        sendTrace({ name: 'error', error: e.errorMsg || JSON.stringify(e) });
         callFrame.destroy();
       }
 
       async function networkStepTimeout() {
-        swapInContent("object-error");
-        sendTrace({ name: "error", error: "test-step-timeout" });
+        swapInContent('object-error');
+        sendTrace({ name: 'error', error: 'test-step-timeout' });
         callFrame.destroy();
       }
 
@@ -336,17 +336,17 @@
         // handle strange case on iOS where we get prompted twice. track this down ...
         if (cameraError) {
           cameraError = false;
-          handleJoinedMeeting({ empty: "empty" });
+          handleJoinedMeeting({ empty: 'empty' });
         }
       }
 
       async function handleCameraError(e) {
         showEvent(e);
-        if (e.errorMsg.errorMsg === "not allowed") {
-          console.log("almost certainly permission error");
+        if (e.errorMsg.errorMsg === 'not allowed') {
+          console.log('almost certainly permission error');
         }
         cameraError = true;
-        swapInContent("camera-permission-error");
+        swapInContent('camera-permission-error');
       }
 
       async function handleJoinedMeeting(e) {
@@ -356,23 +356,23 @@
           return;
         }
         if (!cameraOk) {
-          swapInContent("camera-unknown-error");
+          swapInContent('camera-unknown-error');
           return;
         }
         testBandwidth();
       }
 
       async function testBandwidth() {
-        swapInContent("starting-bandwidth-test");
+        swapInContent('starting-bandwidth-test');
 
         // 30 second timeout for sfu transition
         nextStepTimeout = setTimeout(networkStepTimeout, 30 * 1000);
         let startTs = Date.now();
-        await callFrame.setNetworkTopology({ topology: "sfu" });
+        await callFrame.setNetworkTopology({ topology: 'sfu' });
         clearTimeout(nextStepTimeout);
-        sendTrace({ name: "transitioned-to-sfu", startTs });
+        sendTrace({ name: 'transitioned-to-sfu', startTs });
 
-        console.log("okay in sfu mode");
+        console.log('okay in sfu mode');
 
         // 45 second timeout for bandwidth test
         nextStepTimeout = setTimeout(networkStepTimeout, 30 * 1000);
@@ -392,7 +392,7 @@
           stats.reduce((a, b) => a + b.sendBitsPerSecond, 0) / stats.length;
         clearTimeout(nextStepTimeout);
         console.log(
-          "finished",
+          'finished',
           avgVideoSendBitsPerSecond,
           worstVideoSendPacketLoss,
           stats
@@ -406,27 +406,27 @@
           worstVideoSendPacketLoss >= 0.1 ||
           avgVideoSendBitsPerSecond < 300000
         ) {
-          swapInContent("finished-not-ok");
+          swapInContent('finished-not-ok');
           sendTrace({
-            name: "finished",
+            name: 'finished',
             bandwidthOk: false,
             worstVideoSendPacketLoss,
-            avgVideoSendBitsPerSecond
+            avgVideoSendBitsPerSecond,
           });
         } else {
-          swapInContent("finished-ok");
+          swapInContent('finished-ok');
           sendTrace({
-            name: "finished",
+            name: 'finished',
             bandwidthOk: true,
             worstVideoSendPacketLoss,
-            avgVideoSendBitsPerSecond
+            avgVideoSendBitsPerSecond,
           });
         }
 
-        document.getElementById("kbs").innerHTML = Math.round(
+        document.getElementById('kbs').innerHTML = Math.round(
           avgVideoSendBitsPerSecond / 1000
         );
-        document.getElementById("pkt").innerHTML = Math.round(
+        document.getElementById('pkt').innerHTML = Math.round(
           worstVideoSendPacketLoss * 100
         );
 
@@ -435,15 +435,15 @@
 
       function generateUUID() {
         var d = new Date().getTime();
-        var uuid = "xxxxxxxx-xxxx-4xxx-yxxx-xxxxxxxxxxxx".replace(
+        var uuid = 'xxxxxxxx-xxxx-4xxx-yxxx-xxxxxxxxxxxx'.replace(
           /[xy]/g,
-          function(c) {
+          function (c) {
             var r = (d + Math.random() * 16) % 16 | 0;
             d = Math.floor(d / 16);
-            return (c == "x" ? r : (r & 0x7) | 0x8).toString(16);
+            return (c == 'x' ? r : (r & 0x7) | 0x8).toString(16);
           }
         );
-        ("A");
+        ('A');
         return uuid;
       }
 
@@ -457,14 +457,14 @@
               info.stats.latest.videoSendBitsPerSecond)
           ) {
             data = {
-              name: "client-network-stats",
+              name: 'client-network-stats',
               sendBitsPerSecond: Math.round(
                 info.stats.latest.sendBitsPerSecond ||
                   info.stats.latest.videoSendBitsPerSecond
               ),
               videoSendPacketLoss: info.stats.latest.videoSendPacketLoss,
               quality: info.quality,
-              worstVideoSendPacketLoss: info.stats.worstVideoSendPacketLoss
+              worstVideoSendPacketLoss: info.stats.worstVideoSendPacketLoss,
             };
             sendTrace(data);
             setTimeout(() => resolve(data), 2000);
@@ -478,40 +478,40 @@
       //
       async function sendTrace(data) {
         if (!data.name) {
-          console.error("trace needs a name, at least");
+          console.error('trace needs a name, at least');
         }
 
         let event = Object.assign({}, data);
-        event["service_name"] = "test-call";
-        event["trace.trace_id"] = traceId;
+        event['service_name'] = 'test-call';
+        event['trace.trace_id'] = traceId;
 
         if (data.startTs) {
-          event["Timestamp"] = data.startTs;
-          event["duration_ms"] = Date.now() - data.startTs;
+          event['Timestamp'] = data.startTs;
+          event['duration_ms'] = Date.now() - data.startTs;
         } else {
-          event["Timestamp"] = Date.now();
+          event['Timestamp'] = Date.now();
         }
 
         if (data.root) {
           delete event.root;
-          event["trace.span_id"] = rootSpanId;
+          event['trace.span_id'] = rootSpanId;
         } else {
           // event['meta.span_type'] = 'span_event';
-          event["trace.parentId"] = rootSpanId;
-          event["trace.span_id"] = generateUUID();
+          event['trace.parentId'] = rootSpanId;
+          event['trace.span_id'] = generateUUID();
         }
 
-        console.log("event", event);
+        console.log('event', event);
 
         try {
-          let res = await fetch("https://gs.daily.co/_ks_/x-hny", {
-            method: "POST",
-            mode: "cors",
-            cache: "no-cache",
+          let res = await fetch('https://gs.daily.co/_ks_/x-hny', {
+            method: 'POST',
+            mode: 'cors',
+            cache: 'no-cache',
             headers: {
-              "Content-Type": "application/json"
+              'Content-Type': 'application/json',
             },
-            body: JSON.stringify(event)
+            body: JSON.stringify(event),
           });
         } catch (e) {
           console.error(e);

@@ -80,9 +80,9 @@ npm init
 
 ```javascript
 app.use(
-  "/my-new-demo",
+  '/my-new-demo',
   createProxyMiddleware({
-    target: "http://localhost:1234", // Your demo's port number
+    target: 'http://localhost:1234', // Your demo's port number
   })
 );
 ```

@@ -14,14 +14,14 @@
         position: relative;
       }
       .mobile-statusbar {
-        background-image: url("image-mobile-statusbar@2x.png");
+        background-image: url('image-mobile-statusbar@2x.png');
         background-size: contain;
         width: 375px;
         height: 90px;
         flex: none;
       }
       .mobile-navbar {
-        background-image: url("image-mobile-navbar@2x.png");
+        background-image: url('image-mobile-navbar@2x.png');
         background-size: contain;
         width: 375px;
         height: 83px;
@@ -57,7 +57,7 @@
       .red-button p {
         color: #ff3b30;
         text-align: right;
-        font-family: "Helvetica", Arial, sans-serif;
+        font-family: 'Helvetica', Arial, sans-serif;
         font-size: 12px;
         font-weight: 800;
         cursor: pointer;
@@ -120,46 +120,46 @@
       let fullScreenParticipantId = null;
 
       function showEvent(e) {
-        console.log("callFrame event", e);
+        console.log('callFrame event', e);
       }
 
       async function maybeJoinMeetingFromUrl() {
         let params = new URL(document.location).searchParams;
         // if our url includes a room `url` parameter, join that room
-        if (params.get("url")) {
-          document.getElementById("message-quiescent").style.display = "none";
-          document.getElementById("create-room-button").style.display = "none";
-          window.room = { url: decodeURIComponent(params.get("url")) };
+        if (params.get('url')) {
+          document.getElementById('message-quiescent').style.display = 'none';
+          document.getElementById('create-room-button').style.display = 'none';
+          window.room = { url: decodeURIComponent(params.get('url')) };
           run();
         }
       }
 
       async function createRoomAndJoin() {
-        document.getElementById("create-room-button").style.display = "none";
-        document.getElementById("message-quiescent").style.display = "none";
-        document.getElementById("message-creating").style.display = "block";
+        document.getElementById('create-room-button').style.display = 'none';
+        document.getElementById('message-quiescent').style.display = 'none';
+        document.getElementById('message-creating').style.display = 'block';
 
         window.room = await createMtgRoom();
-        history.pushState(null, "", "?url=" + encodeURIComponent(room.url));
+        history.pushState(null, '', '?url=' + encodeURIComponent(room.url));
         run();
       }
 
       function joiningMeeting() {
-        document.getElementById("message-creating").style.display = "none";
-        document.getElementById("message-joining").style.display = "block";
+        document.getElementById('message-creating').style.display = 'none';
+        document.getElementById('message-joining').style.display = 'block';
       }
 
       function joinedMeeting() {
-        document.getElementById("message-joining").style.display = "none";
-        document.getElementById("message-incall").style.display = "block";
-        document.getElementById("leave-button").style.display = "block";
+        document.getElementById('message-joining').style.display = 'none';
+        document.getElementById('message-incall').style.display = 'block';
+        document.getElementById('leave-button').style.display = 'block';
       }
 
       function leftMeeting() {
-        document.getElementById("message-incall").style.display = "none";
-        document.getElementById("message-quiescent").style.display = "block";
-        document.getElementById("leave-button").style.display = "none";
-        document.getElementById("create-room-button").style.display = "block";
+        document.getElementById('message-incall').style.display = 'none';
+        document.getElementById('message-quiescent').style.display = 'block';
+        document.getElementById('leave-button').style.display = 'none';
+        document.getElementById('create-room-button').style.display = 'block';
       }
 
       function fullScreenClick(e) {
@@ -172,7 +172,7 @@
           return;
         }
         callFrame.updateParticipant(fullScreenParticipantId, {
-          styles: { cam: { div: {} } }
+          styles: { cam: { div: {} } },
         });
         fullScreenParticipantId = null;
       }
@@ -188,42 +188,42 @@
           styles: {
             cam: {
               div: {
-                position: "absolute",
+                position: 'absolute',
                 zIndex: 98,
                 borderRadius: 0, // does not work on Safari 12.1
                 top: 0,
                 left: 0,
-                width: "100%",
-                height: "100%"
-              }
-            }
-          }
+                width: '100%',
+                height: '100%',
+              },
+            },
+          },
         });
       }
 
       async function createCallFrame() {
         window.callFrame = window.DailyIframe.createFrame(
-          document.getElementById("call-container"),
+          document.getElementById('call-container'),
           {
             customLayout: true,
-            cssFile: "mobile-touches.css"
+            cssFile: 'mobile-touches.css',
           }
         );
         callFrame
-          .on("joining-meeting", joiningMeeting)
-          .on("joined-meeting", joinedMeeting)
-          .on("left-meeting", leftMeeting)
-          .on("participant-joined", showEvent)
-          .on("participant-updated", showEvent)
-          .on("participant-left", showEvent)
-          .on("recording-started", showEvent)
-          .on("recording-stopped", showEvent)
-          .on("recording-stats", showEvent)
-          .on("recording-error", showEvent)
-          .on("recording-upload-completed", showEvent)
-          .on("error", showEvent)
-          .on("click", fullScreenClick)
-          .on("touchstart", fullScreenClick);
+          .on('joining-meeting', joiningMeeting)
+          .on('joined-meeting', joinedMeeting)
+          .on('left-meeting', leftMeeting)
+          .on('participant-joined', showEvent)
+          .on('participant-updated', showEvent)
+          .on('participant-left', showEvent)
+          .on('recording-started', showEvent)
+          .on('recording-stopped', showEvent)
+          .on('recording-stats', showEvent)
+          .on('recording-error', showEvent)
+          .on('recording-upload-completed', showEvent)
+          .on('error', showEvent)
+          .on('click', fullScreenClick)
+          .on('touchstart', fullScreenClick);
       }
 
       async function run() {

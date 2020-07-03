@@ -1,28 +1,28 @@
-const express = require("express");
-const { createProxyMiddleware } = require("http-proxy-middleware");
+const express = require('express');
+const { createProxyMiddleware } = require('http-proxy-middleware');
 const app = express();
 
 const PORT = process.env.PORT || 3000;
 
-app.get("/", (req, res) => {
-  res.sendFile("index.html", { root: __dirname, cacheControl: false });
+app.get('/', (req, res) => {
+  res.sendFile('index.html', { root: __dirname, cacheControl: false });
 });
 
 // Static demos - match /static-demos
 
 app.use(
-  "/static-demos",
+  '/static-demos',
   createProxyMiddleware({
-    target: "http://localhost:3001"
+    target: 'http://localhost:3001',
   })
 );
 
 // React demo - match /react-demo
 
 app.use(
-  "/react-demo",
+  '/react-demo',
   createProxyMiddleware({
-    target: "http://localhost:3002"
+    target: 'http://localhost:3002',
   })
 );
 

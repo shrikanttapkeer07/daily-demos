@@ -1,20 +1,20 @@
-import React, { useEffect, useState, useCallback } from "react";
-import Call from "../Call/Call";
-import StartButton from "../StartButton/StartButton";
-import api from "../../api";
-import "./App.css";
-import Tray from "../Tray/Tray";
-import CallObjectContext from "../../CallObjectContext";
-import { roomUrlFromPageUrl, pageUrlFromRoomUrl } from "../../urlUtils";
-import DailyIframe from "@daily-co/daily-js";
-import { logDailyEvent } from "../../logUtils";
+import React, { useEffect, useState, useCallback } from 'react';
+import Call from '../Call/Call';
+import StartButton from '../StartButton/StartButton';
+import api from '../../api';
+import './App.css';
+import Tray from '../Tray/Tray';
+import CallObjectContext from '../../CallObjectContext';
+import { roomUrlFromPageUrl, pageUrlFromRoomUrl } from '../../urlUtils';
+import DailyIframe from '@daily-co/daily-js';
+import { logDailyEvent } from '../../logUtils';
 
-const STATE_IDLE = "STATE_IDLE";
-const STATE_CREATING = "STATE_CREATING";
-const STATE_JOINING = "STATE_JOINING";
-const STATE_JOINED = "STATE_JOINED";
-const STATE_LEAVING = "STATE_LEAVING";
-const STATE_ERROR = "STATE_ERROR";
+const STATE_IDLE = 'STATE_IDLE';
+const STATE_CREATING = 'STATE_CREATING';
+const STATE_JOINING = 'STATE_JOINING';
+const STATE_JOINED = 'STATE_JOINED';
+const STATE_LEAVING = 'STATE_LEAVING';
+const STATE_ERROR = 'STATE_ERROR';
 
 export default function App() {
   const [appState, setAppState] = useState(STATE_IDLE);
@@ -28,9 +28,9 @@ export default function App() {
     setAppState(STATE_CREATING);
     return api
       .createRoom()
-      .then(room => room.url)
-      .catch(error => {
-        console.log("Error creating room", error);
+      .then((room) => room.url)
+      .catch((error) => {
+        console.log('Error creating room', error);
         setRoomUrl(null);
         setAppState(STATE_IDLE);
       });
@@ -45,7 +45,7 @@ export default function App() {
    * be done with the call object for a while and you're no longer listening to its
    * events.
    */
-  const startJoiningCall = useCallback(url => {
+  const startJoiningCall = useCallback((url) => {
     const newCallObject = DailyIframe.createCallObject();
     setRoomUrl(url);
     setCallObject(newCallObject);
@@ -102,22 +102,22 @@ export default function App() {
   useEffect(() => {
     if (!callObject) return;
 
-    const events = ["joined-meeting", "left-meeting", "error"];
+    const events = ['joined-meeting', 'left-meeting', 'error'];
 
     function handleNewMeetingState(event) {
       event && logDailyEvent(event);
       switch (callObject.meetingState()) {
-        case "joined-meeting":
+        case 'joined-meeting':
           setAppState(STATE_JOINED);
           break;
-        case "left-meeting":
+        case 'left-meeting':
           callObject.destroy().then(() => {
             setRoomUrl(null);
             setCallObject(null);
             setAppState(STATE_IDLE);
           });
           break;
-        case "error":
+        case 'error':
           setAppState(STATE_ERROR);
           break;
         default:
@@ -192,7 +192,7 @@ export default function App() {
         <StartButton
           disabled={!enableStartButton}
           onClick={() => {
-            createCall().then(url => startJoiningCall(url));
+            createCall().then((url) => startJoiningCall(url));
           }}
         />
       )}

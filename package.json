@@ -14,7 +14,6 @@
     "react-demo-start": "cd react-demo && npm run build && npm run start",
     "react-demo-dev": "cd react-demo && npm run dev",
     "react-demo-install": "cd react-demo && npm i"
-
   },
   "repository": {
     "type": "git",

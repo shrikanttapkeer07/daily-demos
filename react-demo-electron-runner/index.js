@@ -1,7 +1,7 @@
-const { app, BrowserWindow } = require("electron");
+const { app, BrowserWindow } = require('electron');
 
-const PROD_URL = "http://demos.daily.co/react-demo/";
-const DEV_URL = "http://localhost:3000/react-demo";
+const PROD_URL = 'http://demos.daily.co/react-demo/';
+const DEV_URL = 'http://localhost:3000/react-demo';
 
 function createWindow() {
   let win = new BrowserWindow({
@@ -13,7 +13,7 @@ function createWindow() {
   });
 
   // Use DEV_URL for testing local changes
-  win.loadURL(process.env.NODE_ENV === "development" ? DEV_URL : PROD_URL);
+  win.loadURL(process.env.NODE_ENV === 'development' ? DEV_URL : PROD_URL);
 }
 
 app.whenReady().then(createWindow);
