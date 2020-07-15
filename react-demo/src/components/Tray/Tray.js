@@ -1,6 +1,7 @@
 import React, { useContext, useEffect, useState } from 'react';
 import './Tray.css';
 import TrayButton, {
+  TYPE_ADD_TRACK,
   TYPE_MUTE_CAMERA,
   TYPE_MUTE_MIC,
   TYPE_SCREEN,
@@ -90,6 +91,37 @@ export default function Tray(props) {
     };
   }, [callObject]);
 
+  async function addCustomAudioTrack() {
+    const constraints = {
+      // Audio only requests are not supported in Chrome
+      // Even though we don't use the video track,
+      // we include it in the constraints object
+      video: true,
+      audio: {
+        autoGainControl: true,
+        noiseSuppression: true,
+        volume: 1,
+        sampleRate: 48000
+      }
+    };
+
+    let stream, audio;
+
+    try {
+      stream = await navigator.mediaDevices.getDisplayMedia(constraints);
+      audio = stream.getAudioTracks()[0];
+      if (audio) {
+        try {
+          callObject.startScreenShare({ mediaStream: new MediaStream( [audio] ) });
+        } catch (e) {
+          console.log('error in startScreenShare: ', e);
+        }
+      }
+    } catch (e) {
+      console.log('error in getDisplayMedia: ', e);
+    }
+  }
+
   return (
     <div className="tray">
       <TrayButton
@@ -112,6 +144,13 @@ export default function Tray(props) {
           onClick={toggleSharingScreen}
         />
       )}
+      <TrayButton
+        type={TYPE_ADD_TRACK}
+        disabled={props.disabled}
+        newButtonGroup={true}
+        highlighted={true}
+        onClick={addCustomAudioTrack}
+      />
       <TrayButton
         type={TYPE_LEAVE}
         disabled={props.disabled}

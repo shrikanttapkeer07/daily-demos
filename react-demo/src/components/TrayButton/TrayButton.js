@@ -1,6 +1,7 @@
 import React from 'react';
 import './TrayButton.css';
 import Icon, {
+  TYPE_ADD_TRACK,
   TYPE_MUTE_CAMERA,
   TYPE_MUTE_MIC,
   TYPE_SCREEN,
@@ -27,4 +28,10 @@ export default function TrayButton(props) {
   );
 }
 
-export { TYPE_MUTE_CAMERA, TYPE_MUTE_MIC, TYPE_SCREEN, TYPE_LEAVE };
+export {
+  TYPE_ADD_TRACK,
+  TYPE_MUTE_CAMERA,
+  TYPE_MUTE_MIC,
+  TYPE_SCREEN,
+  TYPE_LEAVE,
+};

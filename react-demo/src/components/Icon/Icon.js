@@ -1,5 +1,6 @@
 import React from 'react';
 
+const TYPE_ADD_TRACK = 'add-track';
 const TYPE_MUTE_CAMERA = 'camera';
 const TYPE_MUTE_MIC = 'mute-mic';
 const TYPE_SCREEN = 'screen';
@@ -17,6 +18,14 @@ export default function Icon(props) {
 
   function getPath() {
     switch (props.type) {
+      case TYPE_ADD_TRACK:
+        return (
+          <path
+            fillRule="evenodd"
+            clipRule="evenodd"
+            d="M8 14C11.3137 14 14 11.3137 14 8C14 4.68629 11.3137 2 8 2C4.68629 2 2 4.68629 2 8C2 11.3137 4.68629 14 8 14ZM8 12C7.44772 12 7 11.5523 7 11V9H5C4.44772 9 4 8.55228 4 8C4 7.44772 4.44772 7 5 7H7V5C7 4.44772 7.44772 4 8 4C8.55228 4 9 4.44772 9 5V7H11C11.5523 7 12 7.44772 12 8C12 8.55228 11.5523 9 11 9H9V11C9 11.5523 8.55228 12 8 12Z"
+          />
+        );
       case TYPE_MUTE_CAMERA:
         return (
           <g
@@ -103,4 +112,10 @@ export default function Icon(props) {
   );
 }
 
-export { TYPE_MUTE_CAMERA, TYPE_MUTE_MIC, TYPE_SCREEN, TYPE_LEAVE };
+export {
+  TYPE_ADD_TRACK,
+  TYPE_MUTE_CAMERA,
+  TYPE_MUTE_MIC,
+  TYPE_SCREEN,
+  TYPE_LEAVE,
+};
